@@ -1,0 +1,85 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: scale-out
+spec:
+  schedule: "50 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: emit
+            image: ko://hpa-cron
+            args:
+            - --namespace=default
+            - --name=example
+            - --value=10.0
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: scale-in
+spec:
+  schedule: "1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: emit
+            image: ko://hpa-cron
+            args:
+            - namespace=default
+            - name=example
+            - value=1.0
+          restartPolicy: OnFailure
+---
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nginx
+spec:
+  maxReplicas: 20
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nginx
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 60
+  - type: External
+    external:
+      target:
+        type: AverageValue
+        averageValue: 1
+      metric:
+        name: custom.googleapis.com|hpacron_default_example
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 80
