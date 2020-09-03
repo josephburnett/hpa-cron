@@ -25,7 +25,7 @@ func main() {
 	if err := emit(*namespace, *name, *value); err != nil {
 		panic(err)
 	}
-	log.Printf("Emitted hpacron_%v/_%v = %v.", *namespace, *name, *value)
+	log.Printf("Emitted hpacron_%v_%v = %v.", *namespace, *name, *value)
 }
 
 func emit(namespace, name string, value float64) error {

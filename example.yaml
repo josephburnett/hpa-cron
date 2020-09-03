@@ -31,9 +31,9 @@ spec:
           - name: emit
             image: ko://hpa-cron
             args:
-            - namespace=default
-            - name=example
-            - value=1.0
+            - --namespace=default
+            - --name=example
+            - --value=1.0
           restartPolicy: OnFailure
 ---
 apiVersion: autoscaling/v2beta2
