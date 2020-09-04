@@ -17,27 +17,32 @@ HPA will scale on an hourly schedule **and** CPU utilization (whichever is great
 ==>
 
 ```
-Every 2.0s: kubectl get hpa ; echo ; kubectl get cronjob ; echo ; kubectl get pods                                                                                                                                                                             josephburnett.waw.corp.google.com: Wed Sep  2 20:51:54 2020
+Every 2.0s: kubectl get hpa ; echo ; kubectl get cronjob ; echo ; kubectl get pods
 
-NAME    REFERENCE          TARGETS             MINPODS   MAXPODS   REPLICAS   AGE
-nginx   Deployment/nginx   1/1 (avg), 0%/60%   1         20        10         9m41s
+NAME         REFERENCE               TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache   1/1 (avg), 16%/60%   1         20        10         32m
 
 NAME        SCHEDULE     SUSPEND   ACTIVE   LAST SCHEDULE   AGE
-scale-in    1 * * * *    False     0        <none>          9m42s
-scale-out   50 * * * *   False     0        116s            9m42s
+scale-in    1 * * * *    False     0        59m             36h
+scale-out   50 * * * *   False     0        10m             36h
 
 NAME                         READY   STATUS      RESTARTS   AGE
-nginx-5754944d6c-4tww4       1/1     Running     0          66s
-nginx-5754944d6c-7jhw7       1/1     Running     0          97s
-nginx-5754944d6c-9fxwk       1/1     Running     0          82s
-nginx-5754944d6c-gtksp       1/1     Running     0          97s
-nginx-5754944d6c-hj5nn       1/1     Running     0          66s
-nginx-5754944d6c-lxcq6       1/1     Running     0          82s
-nginx-5754944d6c-mkx2f       1/1     Running     0          82s
-nginx-5754944d6c-pmfc2       1/1     Running     0          97s
-nginx-5754944d6c-sl878       1/1     Running     0          82s
-nginx-5754944d6c-w8vbh       1/1     Running     0          9m42s
-scale-out-1599072600-v4wjx   0/1     Completed   0          109s
+php-apache-5986bb6b9-5nd9s   1/1     Running     0          11m
+php-apache-5986bb6b9-7749v   1/1     Running     0          10m
+php-apache-5986bb6b9-7r4nd   1/1     Running     0          32m
+php-apache-5986bb6b9-8fpdq   1/1     Running     0          10m
+php-apache-5986bb6b9-cnfpm   1/1     Running     0          9m47s
+php-apache-5986bb6b9-gpzc2   1/1     Running     0          9m47s
+php-apache-5986bb6b9-hqjlt   1/1     Running     0          9m47s
+php-apache-5986bb6b9-qzstt   1/1     Running     0          10m
+php-apache-5986bb6b9-wn6hk   1/1     Running     0          11m
+php-apache-5986bb6b9-wxqtd   1/1     Running     0          9m47s
+scale-in-1599235260-pswp4    0/1     Completed   0          179m
+scale-in-1599238860-zw2b4    0/1     Completed   0          119m
+scale-in-1599242460-8wqjv    0/1     Completed   0          59m
+scale-out-1599238200-jj7qr   0/1     Completed   0          130m
+scale-out-1599241800-hn4zr   0/1     Completed   0          70m
+scale-out-1599245400-zp45w   0/1     Completed   0          10m
 ```
 
 This is what it looks like over time:
