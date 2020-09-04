@@ -39,3 +39,7 @@ nginx-5754944d6c-sl878       1/1     Running     0          82s
 nginx-5754944d6c-w8vbh       1/1     Running     0          9m42s
 scale-out-1599072600-v4wjx   0/1     Completed   0          109s
 ```
+
+This is what it looks like over time:
+
+![](example.png)
