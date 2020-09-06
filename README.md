@@ -12,10 +12,6 @@ Example of how to scale HPA with a CronJob.
 
 HPA will scale on an hourly schedule **and** CPU utilization (whichever is greater).
 
-`watch 'kubectl get hpa ; echo ; kubectl get cronjob ; echo ; kubectl get pods'`
-
-==>
-
 ```
 Every 2.0s: kubectl get hpa ; echo ; kubectl get cronjob ; echo ; kubectl get pods
 
@@ -45,6 +41,13 @@ scale-out-1599241800-hn4zr   0/1     Completed   0          70m
 scale-out-1599245400-zp45w   0/1     Completed   0          10m
 ```
 
-This is what it looks like over time:
+With the example cron and a sine wave load:
+
+```
+while true; do \
+  wget -q -O- http://php-apache.default.svc.cluster.local; \
+  sleep $(date +%H | awk '{ print "s("$0"/3*a(1))*0.5+0.5" }' | bc -l); \
+done
+```
 
 ![](example.png)
