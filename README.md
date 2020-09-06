@@ -50,8 +50,8 @@ while true; do \
 done
 ```
 
-Pod count (orange) increases to 10 every hour on schedule.
-Load naturally increases and decreases pod count over the day.
-CPU utilization (blue) remains below the target (red).
-
 ![](example.png)
+
+Pod count (orange) increases to 10 every hour on schedule.
+Load naturally increases and decreases pod count over time.
+CPU utilization (blue) remains below the target (red).
