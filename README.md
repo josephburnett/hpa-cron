@@ -55,3 +55,10 @@ done
 Pod count (orange) increases to 10 every hour on schedule.
 Load naturally increases and decreases pod count over time.
 CPU utilization (blue) remains below the target (red).
+
+## Caveats
+
+A productionized version of this example would, at a minimum:
+
+1. emit the metric over time to recover from lost data points
+2. emit the current metric immediately when configured (run cron backward to find last scheduled value)
