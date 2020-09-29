@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: scale-out
 spec:
-  schedule: "50 * * * *"
+  schedule: "50-59/1 * * * *"
   jobTemplate:
     spec:
       template:
@@ -22,7 +22,7 @@ kind: CronJob
 metadata:
   name: scale-in
 spec:
-  schedule: "1 * * * *"
+  schedule: "1-49/1 * * * *"
   jobTemplate:
     spec:
       template:
