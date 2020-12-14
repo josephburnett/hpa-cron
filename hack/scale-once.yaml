@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: scale-once
+spec:
+  template:
+    spec:
+      containers:
+      - name: emit
+        image: ko://hpa-cron
+        args:
+        - --namespace=default
+        - --name=example
+        - --value=5.0
+      restartPolicy: OnFailure
